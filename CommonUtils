@@ -1,0 +1,35 @@
+package com.troy.keeper.troy_security.web.rest.utils;
+
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
+/**
+ * Created by leecheng on 2017/6/30.
+ */
+public class CommonUtils {
+
+    private CommonUtils() {
+    }
+//list 非空
+    public static boolean notNullAndEmpty(List source) {
+        return source != null && source.size()>0;
+    }
+    //String 非空
+    public static boolean notNullAndEmpty(String source) {
+        return source != null && !source.trim().equals("");
+    }
+     //Page 非空
+    public static boolean notNullAndEmpty(Page source) {
+        return source != null && source.getTotalElements()>0;
+    }
+    //Long 非空
+    public static boolean notNullAndEmpty(Long source) {
+        return source != null && !source.toString().trim().equals("");
+    }
+    //Long 非空
+    public static boolean notNullAndEmpty(Integer source) {
+        return source != null && !source.toString().trim().equals("");
+    }
+
+}
