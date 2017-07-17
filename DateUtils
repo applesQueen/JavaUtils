@@ -1,0 +1,92 @@
+package com.troy.keeper.troy_security.web.rest.utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+/**
+ * Created by leecheng on 2017/6/22.
+ */
+public class DateUtils {
+
+    public static final Long oneDayMS = 86399999L;
+
+    private DateUtils(){
+        throw new IllegalStateException("工具类不需要实例化");
+    }
+
+    public static Date instantToDate(Instant instant) {
+        long m = instant.toEpochMilli();
+        Date date = new Date();
+        date.setTime(m);
+        return date;
+    }
+
+    public static Date longToDate(Long time) {
+        Date date = new Date();
+        date.setTime(time);
+        return date;
+    }
+
+    public static String instantToString(Instant instant, String format) {
+        return new SimpleDateFormat(format).format(instantToDate(instant));
+    }
+
+    public static String longToString(Long t, String format) {
+        return new SimpleDateFormat(format).format(longToDate(t));
+    }
+
+    public static Instant stringToInstant(String data, String format) throws Exception {
+        try {
+            return Instant.ofEpochMilli(new SimpleDateFormat(format).parse(data).getTime());
+        } catch (ParseException e) {
+            throw new Exception(e);
+        }
+    }
+
+    public static Long stringToLong(String data, String format) throws Exception {
+        try {
+            return new SimpleDateFormat(format).parse(data).getTime();
+        } catch (ParseException e) {
+            throw new Exception(e);
+        }
+    }
+
+    public static Instant defaultStringFormatToInstant(String date) {
+        try {
+            return stringToInstant(date, "yyyy-MM-dd HH:mm:ss");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Long defaultStringFormatToLong(String date) {
+        try {
+            return stringToLong(date, "yyyy-MM-dd HH:mm:ss");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String instantToDefaultString(Instant date) {
+        return instantToString(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static String longToDefaultString(Long date) {
+        return longToString(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static String longToNoHourString(Long date) {
+        return longToString(date, "yyyy-MM-dd");
+    }
+
+
+    public static Long noHourStringFormatToLong(String date) {
+        try {
+            return stringToLong(date, "yyyy-MM-dd");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
